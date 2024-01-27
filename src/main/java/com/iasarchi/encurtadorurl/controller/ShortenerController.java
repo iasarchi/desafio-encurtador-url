@@ -1,12 +1,13 @@
 package com.iasarchi.encurtadorurl.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iasarchi.encurtadorurl.dto.CountTopTenResponseDto;
 import com.iasarchi.encurtadorurl.dto.ShortenerRequestDto;
 import com.iasarchi.encurtadorurl.dto.ShortenerResponseDto;
 import com.iasarchi.encurtadorurl.entity.Shortener;
 import com.iasarchi.encurtadorurl.service.ShortenerService;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,11 +23,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/shortener")
 @RestController
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
+@Slf4j
 public class ShortenerController {
     private final ShortenerService shortenerService;
+    private final ObjectMapper mapper;
 
     @PostMapping
     private ResponseEntity<ShortenerResponseDto> save(@RequestBody ShortenerRequestDto shortenerRequestDto) throws Exception {
+        log.info("[ShortenerController.save] :: Request params: {}", mapper.writeValueAsString(shortenerRequestDto));
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
@@ -41,8 +45,9 @@ public class ShortenerController {
 
     }
     @GetMapping("/{alias}")
-    private ResponseEntity findOriginalUrl(@PathVariable("alias") String url) throws Exception{
-        String originalUrl = shortenerService.findOriginalUrl(url);
+    private ResponseEntity findOriginalUrl(@PathVariable("alias") String alias) {
+        log.info("[ShortenerController.findOriginalUrl] :: Request url alias {}", alias);
+        String originalUrl = shortenerService.findOriginalUrl(alias);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(originalUrl));
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
