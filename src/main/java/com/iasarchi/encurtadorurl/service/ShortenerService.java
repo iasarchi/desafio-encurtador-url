@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,22 +33,34 @@ public class ShortenerService {
         Shortener shortener;
         if (Strings.isNotBlank(alias)){
             validateAliasIsUnique(alias);
-           shortener = new Shortener(alias, url);
+           shortener = new Shortener(alias, url, 0);
         } else {
             String urlIncremented = url + Instant.now().toString();
             String generatedHash = generateHash(urlIncremented);
-            shortener = new Shortener(generatedHash.substring(0, 6), url);
+            shortener = new Shortener(generatedHash.substring(0, 6), url ,0);
         }
         return shortenerRepository.save(shortener);
     }
 
-    public String findOriginalUrl(String alias)  {
+    public String findOriginalUrl(String alias) {
         Optional<Shortener> optionalShortener = shortenerRepository.findById(alias);
-        if(optionalShortener.isPresent()){
-            return optionalShortener.get().getOriginalUrl();
-        }else {
+        if (optionalShortener.isPresent()) {
+            Shortener shortener = optionalShortener.get();
+            incrementClickCount(shortener);
+            return shortener.getOriginalUrl();
+        } else {
             throw new UrlNotFound("SHORTENED URL NOT FOUND");
         }
+    }
+
+    private void incrementClickCount(Shortener shortener) {
+        int countner = shortener.getClickCount() + 1;
+        shortener.setClickCount(countner);
+        shortenerRepository.save(shortener);
+    }
+
+    public List<Shortener> findTopTenMostAccesseds(){
+        return shortenerRepository.findTop10ByOrderByClickCountDesc();
     }
 
     private boolean isValidURL(String url) {

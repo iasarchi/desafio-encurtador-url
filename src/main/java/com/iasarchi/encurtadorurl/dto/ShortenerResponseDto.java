@@ -7,5 +7,4 @@ public record ShortenerResponseDto(String alias, String url,String originalUrl, 
         this(shortener.getId(), shortUrl, shortener.getOriginalUrl(), timeTaken + "ms");
     }
 
-
 }

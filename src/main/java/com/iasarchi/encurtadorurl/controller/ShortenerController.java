@@ -1,5 +1,6 @@
 package com.iasarchi.encurtadorurl.controller;
 
+import com.iasarchi.encurtadorurl.dto.CountTopTenResponseDto;
 import com.iasarchi.encurtadorurl.dto.ShortenerRequestDto;
 import com.iasarchi.encurtadorurl.dto.ShortenerResponseDto;
 import com.iasarchi.encurtadorurl.entity.Shortener;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/shortener")
 @RestController
@@ -43,5 +46,11 @@ public class ShortenerController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(originalUrl));
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+    }
+    @GetMapping("/topten")
+    private ResponseEntity<List<CountTopTenResponseDto>> findTopTenMostAccesseds() {
+        List<Shortener> topTenMostAccesseds = shortenerService.findTopTenMostAccesseds();
+        List<CountTopTenResponseDto> countTopTenResponseDtoList = topTenMostAccesseds.stream().map(CountTopTenResponseDto::new).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(countTopTenResponseDtoList);
     }
 }
