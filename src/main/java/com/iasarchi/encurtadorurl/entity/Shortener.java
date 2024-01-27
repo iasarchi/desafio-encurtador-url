@@ -1,7 +1,5 @@
 package com.iasarchi.encurtadorurl.entity;
 
-import com.iasarchi.encurtadorurl.dto.ShortenerRequestDto;
-import com.iasarchi.encurtadorurl.dto.ShortenerResponseDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class Shortener {
     @Id
     String id;
-    String url;
+    String originalUrl;
 }
 
