@@ -2,6 +2,7 @@ package com.iasarchi.encurtadorurl.controller;
 
 import com.iasarchi.encurtadorurl.exception.AlreadyExistsException;
 import com.iasarchi.encurtadorurl.exception.MessageError;
+import com.iasarchi.encurtadorurl.exception.UrlNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -13,6 +14,13 @@ public class ShortenerControllerAdvice {
     @ExceptionHandler(AlreadyExistsException.class)
     public MessageError handleAlreadyExistsException(AlreadyExistsException ex) {
         MessageError messageError = new MessageError("001", ex.getMessage());
+        return messageError;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UrlNotFound.class)
+    public MessageError handleUrlNotFoundException(UrlNotFound ex){
+        MessageError messageError = new MessageError("002",ex.getMessage());
         return messageError;
     }
 

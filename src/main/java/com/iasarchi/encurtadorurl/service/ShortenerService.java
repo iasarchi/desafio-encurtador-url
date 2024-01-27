@@ -2,15 +2,16 @@ package com.iasarchi.encurtadorurl.service;
 
 import com.iasarchi.encurtadorurl.entity.Shortener;
 import com.iasarchi.encurtadorurl.exception.AlreadyExistsException;
+import com.iasarchi.encurtadorurl.exception.UrlNotFound;
 import com.iasarchi.encurtadorurl.repository.ShortenerRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -33,5 +34,14 @@ public class ShortenerService {
             shortener = new Shortener(hashtext.substring(0, 6), url);
         }
         return shortenerRepository.save(shortener);
+    }
+    public String findOriginalUrl(String alias)  {
+        Optional<Shortener> optionalShortener = shortenerRepository.findById(alias);
+        if(optionalShortener.isPresent()){
+            return optionalShortener.get().getOriginalUrl();
+        }else {
+            throw new UrlNotFound("SHORTENED URL NOT FOUND");
+        }
+
     }
 }

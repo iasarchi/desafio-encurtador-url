@@ -4,13 +4,17 @@ import com.iasarchi.encurtadorurl.dto.ShortenerRequestDto;
 import com.iasarchi.encurtadorurl.dto.ShortenerResponseDto;
 import com.iasarchi.encurtadorurl.entity.Shortener;
 import com.iasarchi.encurtadorurl.service.ShortenerService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RequestMapping("/shortener")
 @RestController
@@ -32,5 +36,12 @@ public class ShortenerController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(shortenerResponseDto);
 
+    }
+    @GetMapping("/{alias}")
+    private ResponseEntity findOriginalUrl(@PathVariable("alias") String url) throws Exception{
+        String originalUrl = shortenerService.findOriginalUrl(url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create(originalUrl));
+        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 }
