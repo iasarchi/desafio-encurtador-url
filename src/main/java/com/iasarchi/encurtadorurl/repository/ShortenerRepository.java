@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ShortenerRepository extends JpaRepository<Shortener,String> {
 
-    @Query("SELECT s FROM shortener s ORDER BY s.clickCount DESC")
+    @Query("SELECT s FROM shortener s ORDER BY s.clickCount DESC limit 10")
     public List<Shortener> findTop10ByOrderByClickCountDesc();
 }
