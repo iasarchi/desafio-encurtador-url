@@ -38,7 +38,7 @@ public class ShortenerController {
 
         stopWatch.stop();
         final String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-        String shortUrl = baseUrl + "/" + shortenerReturned.getId();
+        String shortUrl = baseUrl + "/shortener/" + shortenerReturned.getId();
         ShortenerResponseDto shortenerResponseDto = new ShortenerResponseDto(shortenerReturned, shortUrl, stopWatch.getTotalTimeMillis());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(shortenerResponseDto);
