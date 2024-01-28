@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Slf4j
+@CrossOrigin("http://localhost:4200")
 public class ShortenerController {
     private final ShortenerService shortenerService;
     private final ObjectMapper mapper;
