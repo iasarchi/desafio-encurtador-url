@@ -97,9 +97,13 @@ Para rodar o projeto, siga as seguintes etapas:
 3. Execute os seguintes comandos para rodar a API:
 
 `cd encurtador-url-api`
+
 `mvn clean install`
+
 `docker compose build`
+
 `docker compose up`
+
 
 1. Acesse a URL `http://localhost:8080` para testar a API.
 
@@ -109,8 +113,11 @@ Para rodar a aplicação web, siga as seguintes etapas:
 2. Execute os seguintes comandos para rodar a aplicação web:
 
 `cd encurtador-url-web`
+
 `npm install`
+
 `ng serve`
+
 
 Acesse a URL `http://localhost:4200` para testar a aplicação web.
 
@@ -118,16 +125,17 @@ Acesse a URL `http://localhost:4200` para testar a aplicação web.
 
 Para encurtar uma URL, execute a seguinte chamada HTTP:
 
-`POST /shorten
+`POST http://localhost:8080/shortener
 {
+    "customAlias": "aliastest",
     "url": "https://www.google.com/"
 }`
 
 A resposta será um objeto JSON com o seguinte formato:
 
 `{
-    "alias": "1ed227",
-    "url": "http://localhost:8080/shortener/1ed227",
+    "alias": "aliastest",
+    "url": "http://localhost:8080/shortener/aliastest",
     "originalUrl": "https://www.google.com/",
     "timeTaken": "13ms"
 }`
