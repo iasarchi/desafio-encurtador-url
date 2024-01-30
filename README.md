@@ -1,4 +1,4 @@
-**Encurtador de URL's**
+# Encurtador de URL's
 
 **Descrição:** 
 
@@ -7,8 +7,8 @@ Este projeto consiste em um encurtador de URL's simples, foi escolhido porque é
 - **Shorten URL:** Encurta uma URL e retorna o alias.
 - **Retrieve URL:** Retorna a URL original a partir do alias.
 
-**Tecnologias utilizadas**
-
+# Tecnologias utilizadas
+  "API"
 - **Linguagem:** Java
 - **Framework:** Spring Boot
 - **ORM:** Hibernate
@@ -17,6 +17,13 @@ Este projeto consiste em um encurtador de URL's simples, foi escolhido porque é
     - **Junit:** Para testes unitários
     - **Mockito:** Para mocks
     - **Lombok:** Para getters, setters e constructors
+    
+"WEB"
+- **Linguagem:**
+    - **Typescript:**: como linguagem de programação
+    - **HTML**: como linguagem de marcação
+    - **CSS**: como linguagem de estilizacao
+- **Framework:** angular/angular material
 
 **Design da solução**
 
@@ -48,7 +55,7 @@ Para gerar alias, foi utilizado o algoritmo abaixo:
 4. A API grava a URL original e o alias no banco de dados.
 5. A API retorna a URL encurtada para o usuário.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/aeaea8cd-adfa-48a9-a047-cfdb2f95d76e/9f2ba03d-171d-4f98-9bd6-76e35fad1827/Untitled.png)
+![Diagrama 1](https://imgur.com/2D6ppFq.jpg)
 
 **Imagem 1**
 
@@ -63,7 +70,7 @@ Para gerar alias, foi utilizado o algoritmo abaixo:
 3. Caso contrário, a API recupera a URL original do banco de dados.
 4. A API redireciona o usuário para a URL original.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/aeaea8cd-adfa-48a9-a047-cfdb2f95d76e/560fceb1-ed08-4126-afd9-4d8527eab340/Untitled.png)
+![Diagrama 2](https://imgur.com/wrFVNOE.jpg)
 
 **Imagem 2**
 
@@ -77,9 +84,11 @@ Para gerar alias, foi utilizado o algoritmo abaixo:
 2. A API consulta o banco de dados para obter as 10 URLs mais acessadas.
 3. A API retorna a lista das 10 URLs mais acessadas para o usuário.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/aeaea8cd-adfa-48a9-a047-cfdb2f95d76e/3745423f-8527-4279-b413-e9641849a6c7/Untitled.png)
+![Diagrama 3](https://imgur.com/4mBvs8J.jpg)
 
-**Como rodar o projeto**
+**Imagem 3**
+
+# Como rodar o projeto
 
 Para rodar o projeto, siga as seguintes etapas:
 
@@ -87,10 +96,10 @@ Para rodar o projeto, siga as seguintes etapas:
 2. Abra um terminal na pasta do projeto.
 3. Execute os seguintes comandos para rodar a API:
 
-`cd encurtador-url-api
-mvn clean install
-docker compose build
-docker compose up`
+`cd encurtador-url-api`
+`mvn clean install`
+`docker compose build`
+`docker compose up`
 
 1. Acesse a URL `http://localhost:8080` para testar a API.
 
@@ -99,9 +108,9 @@ Para rodar a aplicação web, siga as seguintes etapas:
 1. Abra um terminal na pasta do projeto.
 2. Execute os seguintes comandos para rodar a aplicação web:
 
-`cd encurtador-url-web
-npm install
-ng serve`
+`cd encurtador-url-web`
+`npm install`
+`ng serve`
 
 Acesse a URL `http://localhost:4200` para testar a aplicação web.
 
@@ -125,7 +134,7 @@ A resposta será um objeto JSON com o seguinte formato:
 
 Para acessar uma URL encurtada, execute a seguinte chamada HTTP:
 
-`GET /shortener/{alias}`
+`GET http://localhost:8080/shortener/{alias}`
 
 Onde `{alias}` é o alias da URL encurtada.
 
@@ -133,7 +142,7 @@ A resposta será um redirecionamento para a URL original.
 
 Para consultar as 10 URLs mais acessadas, execute a seguinte chamada HTTP:
 
-`GET /top10`
+`GET http://localhost:8080/topten`
 
 A resposta será um objeto JSON com o seguinte formato:
 
