@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Slf4j
-@CrossOrigin("http://localhost:4200")
 public class ShortenerController {
     private final ShortenerService shortenerService;
     private final ObjectMapper mapper;
@@ -51,6 +50,7 @@ public class ShortenerController {
         String originalUrl = shortenerService.findOriginalUrl(alias);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(originalUrl));
+        headers.add("Cache-Control", "no-cache");
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
     @GetMapping("/topten")
