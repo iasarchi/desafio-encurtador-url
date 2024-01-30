@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.iasarchi</groupId>
-    <artifactId>encurtador-url</artifactId>
+    <artifactId>encurtador-url-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>encurtador-url</name>
-    <description>encurtador-url</description>
+    <name>encurtador-url-api</name>
+    <description>encurtador-url-api</description>
     <properties>
         <java.version>17</java.version>
     </properties>
