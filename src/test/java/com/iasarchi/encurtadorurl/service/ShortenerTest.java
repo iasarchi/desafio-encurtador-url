@@ -5,6 +5,7 @@ import com.iasarchi.encurtadorurl.exception.AlreadyExistsException;
 import com.iasarchi.encurtadorurl.exception.InvalidURLException;
 import com.iasarchi.encurtadorurl.exception.UrlNotFound;
 import com.iasarchi.encurtadorurl.repository.ShortenerRepository;
+import com.iasarchi.encurtadorurl.service.ShortenerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
