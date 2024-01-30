@@ -1,0 +1,59 @@
+<h1>Encurtador de Url</h1>
+
+<form [formGroup]="urlForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="input-form">
+      <mat-label for="url">Insira sua url:</mat-label>
+      <input matInput type="text" id="url" formControlName="url">
+    </mat-form-field>
+  <br>
+    <mat-form-field class="input-form">
+      <mat-label for="customAlias">Insira um custom alias (Opcional):</mat-label>
+      <input matInput type="text" id="customAlias" formControlName="customAlias">
+    </mat-form-field>
+  <br>
+  <button mat-raised-button color="primary" type="submit" style="margin-left: 0.2rem">Enviar</button>
+</form>
+
+<div class="table">
+  <h2>Shorted URL</h2>
+  <mat-table [dataSource]="urlList">
+    <ng-container matColumnDef="alias">
+      <mat-header-cell *matHeaderCellDef> Alias</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.alias }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="originalUrl">
+      <mat-header-cell *matHeaderCellDef> URL Original</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.originalUrl }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="url">
+      <mat-header-cell *matHeaderCellDef> URL Original</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <a [href]="row.url">Link</a>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['alias', 'originalUrl', 'url']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['alias', 'originalUrl', 'url']"></mat-row>
+  </mat-table>
+</div>
+
+
+<div class="table">
+  <h2>Top ten URLs</h2>
+  <mat-table [dataSource]="topTenUrlList">
+    <ng-container matColumnDef="url">
+      <mat-header-cell *matHeaderCellDef> URL</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.url }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="count">
+      <mat-header-cell *matHeaderCellDef> Count</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.count }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['url', 'count']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['url', 'count']"></mat-row>
+  </mat-table>
+</div>
