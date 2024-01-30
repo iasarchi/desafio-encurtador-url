@@ -32,14 +32,13 @@ export class EncurtadorComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private encurtadorService: EncurtadorService,
-    private toastrService: ToastrService
   ) {
   }
 
   ngOnInit(): void {
     this.loadTopTenUrls();
-    if (localStorage.getItem('urlList')) {
-      this.urlList = JSON.parse(localStorage.getItem('urlList')!);
+    if (sessionStorage.getItem('urlList')) {
+      this.urlList = JSON.parse(sessionStorage.getItem('urlList')!);
     }
   }
 
@@ -51,7 +50,7 @@ export class EncurtadorComponent implements OnInit {
     this.encurtadorService.shortUrl(urlValue!, customAliasValue!).subscribe(response => {
       console.log('Resposta API', response)
       this.urlList = [response, ...this.urlList];
-      localStorage.setItem('urlList', JSON.stringify(this.urlList));
+      sessionStorage.setItem('urlList', JSON.stringify(this.urlList));
       this.urlForm.reset();
     });
   }
